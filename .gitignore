@@ -1,3 +1,7 @@
+# Textadept session files
+session
+session_term
+
 # Compiled Lua sources
 luac.out
 
