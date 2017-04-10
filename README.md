@@ -1,11 +1,12 @@
 # .textadept
-Config files for the Textadept Editor
+Config files for the [Textadept Editor](https://foicica.com/textadept/).
 
 Most of these settings are highly personalized, maybe they are of some use to
 other people (if only as an example of bad lua code 😉). 
 
 My field is Social Science, so this makes extensive use of snippets in LaTeX 
 and Markdown.
+I write mainly in German, so a lot of stuff is only useful in German Academia.
 
 ## Submodules
 I use the textadept-themes repo of rgieseke:
