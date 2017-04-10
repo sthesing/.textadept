@@ -3,16 +3,21 @@
 
 usersnippets = {
     ['file'] = '%<buffer.filename>',
-    ['beh'] = 'Behindertenpädagogik',
-    ['FAB']= 'Fachkraft zur Arbeits- und Berufsförderung',
-    ['FABs'] = 'Fachkräfte zur Arbeits- und Berufsförderung',
-    ['FFK'] = 'Fähigkeiten, Fertigkeiten, Kenntnisse',
-    ['SQ'] = 'Schlüsselqualifikation',
-    ['HO'] = 'Handlungsorientierung',
-    ['ho'] = 'handlungsorientiert',
-    ['Reha'] = 'Rehabilitation',
-    ['anfuu'] = '„',
-    ['anfuo'] = '“',
+
+-- Specific stuff I frequently use in my German academic texts    
+    ['beh']     = 'Behindertenpädagogik',
+    ['FAB']     = 'Fachkraft zur Arbeits- und Berufsförderung',
+    ['FABs']    = 'Fachkräfte zur Arbeits- und Berufsförderung',
+    ['FFK']     = 'Fähigkeiten, Fertigkeiten, Kenntnisse',
+    ['SQ']      = 'Schlüsselqualifikation',
+    ['HO']      = 'Handlungsorientierung',
+    ['ho']      = 'handlungsorientiert',
+    ['Reha']    = 'Rehabilitation',
+    ['anfuu']   = '„',
+    ['anfuo']   = '“',
+    ['mmb']     = 'Menschen mit Behinderung',
+    ['sozr']    = 'sozialraumorientiert',
+    ['Sozr']    = 'Sozialraumorientierung',
 }
 
 -- Add user defined snippets to the preconfigured ones, overwriting, if 
@@ -51,7 +56,7 @@ snippets.latex = {
 -- Sections etc.
     ['chap']        = '\\chapter{%1(title)}\\label{chap:%2(label)}',
     ['sec']         = '\\section{%1(title)}\\label{sec:%2(label)}',
-    ['sub']         = '\\subsection{%1(title)\\label{subsec:%2(label)}',
+    ['sub']         = '\\subsection{%1(title)}\\label{subsec:%2(label)}',
     ['subsub']      = '\\subsubsection{%1(title)}\\label{subsubsec:%2(label)}',
     ['par']         = '\\paragraph{%1(title)} ~\\',
 -- Environments
@@ -70,6 +75,9 @@ snippets.latex = {
     ['frame']       = '\\begin{frame}\n\t\\item %1( )\n\\end{frame}\n%2( )',
     --- skeleton of my most frequently used table
     ['table']       = '\\begin{table}[hb]\n\t\\begin{tabularx}{\\textwidth}{|l|X|}\n\t\\hline\n\t\\rowcolor{lightgray}\n\t%1(Header Column1) & %2(Header Column2)\\\\ \\hline\n\t%5(Row1Col1)& %6(Row1Col2)\\\\ \\hline\n\t%7(Row2Col1) & %8(Row2Col2)\\\\ \\hline\n\t\\end{tabularx}\n\t\\caption {%3(Caption)}\n\t\\label{tab:%4(label)}\n\\end{table}',
+    -- Figure
+    ['fig']         = '\\begin{figure}[h]\n\t\\centering\n\t\\includegraphics[width=\\textwidth]{%1(file)}\n\t\\caption{%2(caption)}\n\t\\label{fig:%3(label)}\n\\end{figure}\n',
+    ['abb']         = '\\begin{figure}[h]\n\t\\centering\n\t\\includegraphics[width=\\textwidth]{%1(file)}\n\t\\caption{%2(caption)}\n\t\\label{fig:%3(label)}\n\\end{figure}\n',
 -- Arrows
     ['uparrow']     = '$\\uparrow $',
     ['Uparrow']     = '$\\Uparrow $',
@@ -126,6 +134,9 @@ snippets.latex = {
     ['va']              = 'v.\\,a. ',
     ['zb']              = 'z.\\,B. ',
     ['dh']              = 'd.\\,h. ',
+    ['uu']              = 'u.\\,U. ',
+    ['me']              = 'm.\\,E. ',
+    ['mE']              = 'm.\\,E. ',
     --- one of them usually followed by a citation.
     ['vgl']             = '(vgl. \\cite[S.\\,%2(page)]{%1(source)})',
 
