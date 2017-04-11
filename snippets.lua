@@ -1,5 +1,6 @@
 -- Snippets
 --- # Global Snippets
+require("dynamic-snippets")
 
 usersnippets = {
     ['file'] = '%<buffer.filename>',
@@ -18,6 +19,8 @@ usersnippets = {
     ['mmb']     = 'Menschen mit Behinderung',
     ['sozr']    = 'sozialraumorientiert',
     ['Sozr']    = 'Sozialraumorientierung',
+    -- current_author ist defined in dynamic snippets. It's usually a bibtex key
+    ['ca']      = current_author,
 }
 
 -- Add user defined snippets to the preconfigured ones, overwriting, if 
@@ -59,6 +62,12 @@ snippets.latex = {
     ['sub']         = '\\subsection{%1(title)}\\label{subsec:%2(label)}',
     ['subsub']      = '\\subsubsection{%1(title)}\\label{subsubsec:%2(label)}',
     ['par']         = '\\paragraph{%1(title)} ~\\',
+    -- starred variants
+    ['chaps']        = '\\chapter*{%1(title)}\\label{chap:%2(label)}',
+    ['secs']         = '\\section*{%1(title)}\\label{sec:%2(label)}',
+    ['subs']         = '\\subsection*{%1(title)}\\label{subsec:%2(label)}',
+    ['subsubs']      = '\\subsubsection*{%1(title)}\\label{subsubsec:%2(label)}',
+    ['pars']         = '\\paragraph*{%1(title)} ~\\',
 -- Environments
     --- first, generics
     ['begin']       = '\\begin{%1(type)}\n\t%3( )\n\\end{%2(type)}\n%4( )',
@@ -115,6 +124,8 @@ snippets.latex = {
     
     --- \citeauthor{key}
     ['aut']             = '\\citeauthor{%0}',
+    --- aut as a dynamic snippet
+    ['daut']            = '\\citeauthor{' .. current_author .. '}',
     --- \citetitle{key}
     ['citetitle']       = '\\citetitle{%0}',
     --- \citetitle* [ prenote ][ postnote ]{ key }
@@ -147,5 +158,5 @@ snippets.latex = {
     ['ma']              = '\\marginpar{%0}',
     ['rn']              = '\\marginpar{%0}',
     -- a Comment Box I use in my excerpts
-    ['anm']             = '\\begin{mdframed}[backgroundcolor=gray!20,roundcorner=8pt,shadow=true]\n\tAnm. ' .. user_initials .. ':\\\\\n\t%0\n\\end{mdframed}',
+    ['anm']             = '\\begin{mdframed}[backgroundcolor=gray!20,roundcorner=8pt]\n\tAnm. ' .. user_initials .. ':\\\\\n\t%0\n\\end{mdframed}',
 }
