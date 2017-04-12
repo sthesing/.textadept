@@ -34,6 +34,10 @@ usersnippets = {
     ['mml']     = 'Menschen mit Lernschwierigkeiten',
     ['sozr']    = 'sozialraumorientiert',
     ['Sozr']    = 'Sozialraumorientierung',
+    ['wfbm']    = 'Werkstatt für behinderte Menschen',
+    ['EV']      = 'Eingangsverfahren',
+    ['BBB']     = 'Berufsbildungsbereich',
+    ['AB']      = 'Arbeitsbereich',
 }
 
 -- Add user defined snippets to the preconfigured ones, overwriting, if 
