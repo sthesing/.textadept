@@ -1,6 +1,6 @@
 -- Snippets
 --- # Global Snippets
-require("dynamic-snippets")
+require("snippets/dynamic-snippets")
 
 usersnippets = {
     ['file'] = '%<buffer.filename>',
@@ -20,7 +20,7 @@ usersnippets = {
     ['sozr']    = 'sozialraumorientiert',
     ['Sozr']    = 'Sozialraumorientierung',
     -- current_author ist defined in dynamic snippets. It's usually a bibtex key
-    ['ca']      = current_author,
+    ['ca']      = dynsn.fields.current_author,
 }
 
 -- Add user defined snippets to the preconfigured ones, overwriting, if 
@@ -125,7 +125,7 @@ snippets.latex = {
     --- \citeauthor{key}
     ['aut']             = '\\citeauthor{%0}',
     --- aut as a dynamic snippet
-    ['daut']            = '\\citeauthor{' .. current_author .. '}',
+    ['daut']            = '\\citeauthor{' .. dynsn.fields.current_author .. '}',
     --- \citetitle{key}
     ['citetitle']       = '\\citetitle{%0}',
     --- \citetitle* [ prenote ][ postnote ]{ key }
@@ -158,5 +158,5 @@ snippets.latex = {
     ['ma']              = '\\marginpar{%0}',
     ['rn']              = '\\marginpar{%0}',
     -- a Comment Box I use in my excerpts
-    ['anm']             = '\\begin{mdframed}[backgroundcolor=gray!20,roundcorner=8pt]\n\tAnm. ' .. user_initials .. ':\\\\\n\t%0\n\\end{mdframed}',
+    ['anm']             = '\\begin{mdframed}[backgroundcolor=gray!20,roundcorner=8pt]\n\tAnm. ' .. dynsn.fields.user_initials .. ':\\\\\n\t%0\n\\end{mdframed}',
 }

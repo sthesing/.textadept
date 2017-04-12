@@ -8,4 +8,4 @@ end
 user_initials = 'ST'
 
 -- Snippets
-require("snippets")
+require("snippets/snippets")
