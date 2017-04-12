@@ -4,8 +4,5 @@ if not CURSES then
     {font = 'Inconsolata', fontsize = 12}) 
 end
 
--- User Initials
-user_initials = 'ST'
-
 -- Snippets
 require("snippets/snippets")

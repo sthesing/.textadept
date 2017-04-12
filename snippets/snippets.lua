@@ -1,7 +1,21 @@
 -- Snippets
---- # Global Snippets
+--[[
+Textadept stores its built-in snippets in the global variable "snippets".
+I don't want to erase those. Instead I want to _add_ to them, overwriting 
+defaults where necessary.
+--]]
+
+-- a function to insert user defined snippets into the global snippets
+function merge_snippets(global_snippets, user_snippets)
+    for k,v in pairs(user_snippets) do 
+        global_snippets[k] = v 
+    end
+end
+
+-- Fields for dynamic snippets
 require("snippets/dynamic-snippets")
 
+--- # General Snippets
 usersnippets = {
     ['file'] = '%<buffer.filename>',
 
@@ -17,15 +31,14 @@ usersnippets = {
     ['anfuu']   = '„',
     ['anfuo']   = '“',
     ['mmb']     = 'Menschen mit Behinderung',
+    ['mml']     = 'Menschen mit Lernschwierigkeiten',
     ['sozr']    = 'sozialraumorientiert',
     ['Sozr']    = 'Sozialraumorientierung',
-    -- current_author ist defined in dynamic snippets. It's usually a bibtex key
-    ['ca']      = dynsn.fields.current_author,
 }
 
 -- Add user defined snippets to the preconfigured ones, overwriting, if 
 -- necessary
-for k,v in pairs(usersnippets) do snippets[k] = v end
+merge_snippets(snippets, usersnippets)
 
 --- # Markdown Snippets
 snippets.markdown = {
@@ -53,6 +66,8 @@ snippets.markdown = {
 -- Image.
 	i = '![%1(Alt text)](%2(/path/to/img.jpg "Optional title"))',
 }
+
+
 
 --- # LaTeX Snippets
 snippets.latex = {
@@ -158,5 +173,7 @@ snippets.latex = {
     ['ma']              = '\\marginpar{%0}',
     ['rn']              = '\\marginpar{%0}',
     -- a Comment Box I use in my excerpts
-    ['anm']             = '\\begin{mdframed}[backgroundcolor=gray!20,roundcorner=8pt]\n\tAnm. ' .. dynsn.fields.user_initials .. ':\\\\\n\t%0\n\\end{mdframed}',
+    ['anm']             = '\\begin{mdframed}[backgroundcolor=gray!20,roundcorner=8pt]\n\t\\textbf{Anm. ' .. dynsn.fields.user_initials .. ':} %0\n\\end{mdframed}',
+    -- current_author ist defined in dynamic snippets. It's usually a bibtex key
+    ['ca']      = dynsn.fields.current_author,
 }

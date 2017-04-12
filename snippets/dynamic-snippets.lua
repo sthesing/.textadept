@@ -1,14 +1,10 @@
 --[[
 Dynamic Snippets are snippets that do not expand to a fixed template with 
 entry points, but contain elements that depend on the value of variables 
-in lua.
-Those are defined here in the section "Fields".
-The snippets themselves are in the section "Dynamic snippets"
+in lua. Those are defined here. I call them "Fields".
 --]]
 
 dynsn = {}
-
-dynsn.snippets = {}
 
 ----------------------
 --      Fields      --
@@ -19,7 +15,3 @@ dynsn.fields = {
     -- current Author, meaning a bibtexkey frequently in use, at the moment
     ["current_author"]      = "grampp2014",
 }
-
-----------------------
--- Dynamic Snippets --
-----------------------
