@@ -13,5 +13,5 @@ dynsn.fields = {
     -- User Initials
     ["user_initials"]       = "ST",
     -- current Author, meaning a bibtexkey frequently in use, at the moment
-    ["current_author"]      = "grampp2014",
+    ["current_author"]      = "bagwfbm2015",
 }

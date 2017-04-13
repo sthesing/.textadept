@@ -89,18 +89,18 @@ snippets.latex = {
     ['pars']         = '\\paragraph*{%1(title)} ~\\',
 -- Environments
     --- first, generics
-    ['begin']       = '\\begin{%1(type)}\n\t%3( )\n\\end{%2(type)}\n%4( )',
+    ['begin']       = '\\begin{%1(type)}\n\t%3( )\n\\end{%1}\n%0',
     ['item']        = '\\item %0',
     ['desitem']     = '\\item[%1(des)] %2(item)',
     ['ditem']       = '\\item[%1(des)] %2(item)',
     --- next, the classics
-    ['itemize']     = '\\begin{itemize}\n\t\\item %1(item)\n\\end{itemize}\n%2( )',
-    ['enum']        = '\\begin{enumerate}\n\t\\item %1(item)\n\\end{enumerate}\n%2( )',
-    ['enumerate']   = '\\begin{enumerate}\n\t\\item %1(item)\n\\end{enumerate}\n%2( )',
-    ['description'] = '\\begin{description}\n\t\\item[%1(des)] %2(item)\n\\end{description}\n%3( )',
-    ['des']         = '\\begin{description}\n\t\\item[%1(des)] %2(item)\n\\end{description}\n%3( )',
-    ['desindent']   = '\\begin{itemize}[style=multiline,leftmargin=2.5cm,font=\\normalfont]\n\t\\item[%1(des)] %2(item)\n\\end{itemize}\n%3( )',
-    ['frame']       = '\\begin{frame}\n\t\\item %1( )\n\\end{frame}\n%2( )',
+    ['itemize']     = '\\begin{itemize}\n\t\\item %1(item)\n\\end{itemize}\n%0',
+    ['enum']        = '\\begin{enumerate}\n\t\\item %1(item)\n\\end{enumerate}\n%0',
+    ['enumerate']   = '\\begin{enumerate}\n\t\\item %1(item)\n\\end{enumerate}\n%0',
+    ['description'] = '\\begin{description}\n\t\\item[%1(des)] %2(item)\n\\end{description}\n%0',
+    ['des']         = '\\begin{description}\n\t\\item[%1(des)] %2(item)\n\\end{description}\n%0',
+    ['desindent']   = '\\begin{itemize}[style=multiline,leftmargin=2.5cm,font=\\normalfont]\n\t\\item[%1(des)] %2(item)\n\\end{itemize}\n%0',
+    ['frame']       = '\\begin{frame}\n\t\\item %1(content)\n\\end{frame}\n%0',
     --- skeleton of my most frequently used table
     ['table']       = '\\begin{table}[hb]\n\t\\begin{tabularx}{\\textwidth}{|l|X|}\n\t\\hline\n\t\\rowcolor{lightgray}\n\t%1(Header Column1) & %2(Header Column2)\\\\ \\hline\n\t%5(Row1Col1)& %6(Row1Col2)\\\\ \\hline\n\t%7(Row2Col1) & %8(Row2Col2)\\\\ \\hline\n\t\\end{tabularx}\n\t\\caption {%3(Caption)}\n\t\\label{tab:%4(label)}\n\\end{table}',
     -- Figure
@@ -144,7 +144,7 @@ snippets.latex = {
     --- \citeauthor{key}
     ['aut']             = '\\citeauthor{%0}',
     --- aut as a dynamic snippet
-    ['daut']            = '\\citeauthor{' .. dynsn.fields.current_author .. '}',
+    ['daut']            = '\\citeauthor{' .. dynsn.fields.current_author .. '} ',
     --- \citetitle{key}
     ['citetitle']       = '\\citetitle{%0}',
     --- \citetitle* [ prenote ][ postnote ]{ key }
@@ -172,6 +172,7 @@ snippets.latex = {
 
 -- Misc
     ['emph']            = '\\emph{%0}',
+    ['bf']              = '\\textbf{%0}',
     ['bs']              = '\\bigskip{}',
     ['fn']              = '\\footnote{%0}',
     ['ma']              = '\\marginpar{%0}',
