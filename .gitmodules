@@ -1,3 +1,6 @@
 [submodule "themes"]
 	path = themes
 	url = https://github.com/rgieseke/textadept-themes.git
+[submodule "modules/fuzzy_finder"]
+	path = modules/fuzzy_finder
+	url = https://github.com/chanble/ta-fuzzy-finder.git

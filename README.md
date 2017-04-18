@@ -9,9 +9,13 @@ and Markdown.
 I write mainly in German, so a lot of stuff is only useful in German Academia.
 
 ## Submodules
+### textadept-themes
 I use the textadept-themes repo of rgieseke:
 https://github.com/rgieseke/textadept-themes.git
 
 But these config files can be used without it. Just add a directory called 
 "themes" in your Textadept-userhome and make sure the themefile referenced in
 init.lua is present, there.
+
+### fuzzy finder
+Fuzzy Finder by chanble https://github.com/chanble/ta-fuzzy-finder
