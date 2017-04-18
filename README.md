@@ -16,6 +16,3 @@ https://github.com/rgieseke/textadept-themes.git
 But these config files can be used without it. Just add a directory called 
 "themes" in your Textadept-userhome and make sure the themefile referenced in
 init.lua is present, there.
-
-### fuzzy finder
-Fuzzy Finder by chanble https://github.com/chanble/ta-fuzzy-finder
