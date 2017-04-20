@@ -18,6 +18,8 @@ require("snippets/dynamic-snippets")
 --- # General Snippets
 usersnippets = {
     ['file'] = '%<buffer.filename>',
+    -- A snippet to speed up the notation of snippets (Mind. Blown.)
+    ['sn']      = '[\'%1(trigger)\']\t\t= \'%2(expanded)\',\n%0',   
 
 -- Specific stuff I frequently use in my German academic texts    
     ['beh']     = 'Behindertenpädagogik',
@@ -38,6 +40,18 @@ usersnippets = {
     ['EV']      = 'Eingangsverfahren',
     ['BBB']     = 'Berufsbildungsbereich',
     ['AB']      = 'Arbeitsbereich',
+    ['Täo']     = 'Tätikeitsorientiert',
+    ['täo']     = 'tätigkeitsorientiert',
+    ['Apo']		= 'Arbeitsplatzorientiert',
+    ['apo']		= 'arbeitsplatzorientiert',
+    ['Bfo']		= 'Berufsfeldorientiert',
+    ['bfo']		= 'berufsfeldorientiert',
+    ['Bbo']		= 'Berufsbildorientiert',
+    ['bbo']		= 'berufsbildorientiert',
+    ['qg']		= 'Qualifizierung',
+    ['qo']		= 'Qualifikation',
+      
+      
 }
 
 -- Add user defined snippets to the preconfigured ones, overwriting, if 
