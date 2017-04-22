@@ -9,6 +9,7 @@ and Markdown.
 I write mainly in German, so a lot of stuff is only useful in German Academia.
 
 ## Submodules
+### textadept-themes
 I use the textadept-themes repo of rgieseke:
 https://github.com/rgieseke/textadept-themes.git
 
