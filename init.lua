@@ -10,3 +10,6 @@ require("snippets/snippets")
 -- Elastic Tabstops
 require('elastic_tabstops').enable()
 
+-- Zettels
+local zettels = require('zettels')
+zettels.enable()
