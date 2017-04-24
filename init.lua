@@ -6,3 +6,7 @@ end
 
 -- Snippets
 require("snippets/snippets")
+
+-- Elastic Tabstops
+require('elastic_tabstops').enable()
+
