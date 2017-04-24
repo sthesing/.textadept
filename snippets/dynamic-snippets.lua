@@ -5,7 +5,6 @@ in lua. Those are defined here. I call them "Fields".
 --]]
 
 dynsn = {}
-
 ----------------------
 --      Fields      --
 ----------------------
