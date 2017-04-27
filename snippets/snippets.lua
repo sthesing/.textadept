@@ -22,7 +22,7 @@ usersnippets = {
     ['file'] = '%<buffer.filename>',
     -- A snippet to speed up the notation of snippets (Mind. Blown.)
     ['sn']      = '[\'%1(trigger)\']\t\t= \'%2(expanded)\',\n%0',
-    ['fence']   = '--- ' .. string.rep('#', 74),
+    ['fence']   = '-- ' .. string.rep('#', 75),
 
 -- Specific stuff I frequently use in my German academic texts    
     ['beh']     = 'Behindertenpädagogik',
