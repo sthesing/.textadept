@@ -137,7 +137,7 @@ snippets.latex = {
     ['page']        = '\\pageref{%0}',
     ['name']        = '\\nameref{%0}',
 -- Quoting, using csquotes
-    ['enq']         = '\\enquote{%0}',
+    ['enq']         = '\\enquote{%1}%0',
     --- blockquotes
     ['zit']         = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t\\parencite[S.\\,%3(page)]{%2(source)}\n\\end{quote}',
     --- blockquotes for laws
