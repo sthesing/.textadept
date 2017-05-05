@@ -18,4 +18,10 @@ yaml = require "yaml"
 
 -- Zettels
 local zettels = require('zettels')
-zettels.enable()
+zettels.enable('/home/sthesing/Dokumente/Zettelkasten/', "/home/sthesing/.config/Zettels/index.yaml")
+
+-- Keyboard Chains
+keys['c2'] = {
+    up = function() buffer.add_text("“") end,
+    down = function() buffer.add_text("„") end
+}

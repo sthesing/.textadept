@@ -33,7 +33,7 @@ usersnippets = {
     ['HO']      = 'Handlungsorientierung',
     ['ho']      = 'handlungsorientiert',
     ['Reha']    = 'Rehabilitation',
-    ['anfuu']   = '„',
+    ['anfuu']   = '„%0“',
     ['anfuo']   = '“',
     ['mmb']     = 'Menschen mit Behinderung',
     ['mml']     = 'Menschen mit Lernschwierigkeiten',
@@ -172,8 +172,8 @@ snippets.latex = {
     --- \fullcite{ key}
     ['fullcite']        = '\\fullcite{%0}',
     --- \citereset{}
-    ['citereset']       = '\\citereset{}',
-    ['cr']              = '\\citereset{}',
+    ['citereset']       = '\\citereset{%0}',
+    ['cr']              = '\\citereset{%0}',
 -- Some abbreviations frequently used in German academia
     ['oä']              = 'o.\\,ä. ',
     ['uä']              = 'u.\\,ä. ',
