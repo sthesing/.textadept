@@ -22,6 +22,7 @@ zettels.enable('/home/sthesing/Dokumente/Zettelkasten/', "/home/sthesing/.config
 
 -- Keyboard Chains
 keys['c2'] = {
+    -- German Quotation marks
     up = function() buffer.add_text("“") end,
     down = function() buffer.add_text("„") end
 }

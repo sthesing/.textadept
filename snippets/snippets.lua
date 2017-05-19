@@ -84,6 +84,8 @@ snippets.markdown = {
 	c = '`%0`',
 -- Codeblock
 	cb = '```%0\n```',
+    --python
+    cbp = '```{.python .numberLines}\n%0\n```',
 -- Image.
 	i = '![%1(Alt text)](%2(/path/to/img.jpg "Optional title"))',
 }
