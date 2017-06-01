@@ -4,6 +4,8 @@ session_term
 
 # Textadept Modules that are versioned for themselves
 modules/zettels
+modules/path
+modules/path.lua
 
 # Compiled Lua sources
 luac.out
