@@ -17,8 +17,10 @@ yaml = require "yaml"
 --lyaml = require "yaml.lyaml"
 
 -- Zettels
-local zettels = require('zettels')
-zettels.enable(os.getenv("HOME") .. '/Dokumente/Zettelkasten/', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
+if not CURSES then
+    local zettels = require('zettels')
+    zettels.enable(os.getenv("HOME") .. '/Dokumente/Zettelkasten/', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
+end
 
 -- Keyboard Chains
 keys['c2'] = {
