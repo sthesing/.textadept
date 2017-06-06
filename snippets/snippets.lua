@@ -75,10 +75,9 @@ snippets.markdown = {
   ['6'] = '###### ',
 
 --Links
-
   link = '[%1(Link)](%2(http://example.net/))',
 --Clickable link.
-	clink = '<%1(http://example.com/)>',
+  clink = '<%1(http://example.com/)>',
 --Reference-style link.
   rlink = '[%1(example)][%2(ref)]',
   id = '[%1(ref)]: %2(http://example.com/)',
@@ -91,6 +90,8 @@ snippets.markdown = {
     cbp = '```{.python .numberLines}\n%0\n```',
 -- Image.
 	i = '![%1(Alt text)](%2(/path/to/img.jpg "Optional title"))',
+-- Zettel metadata
+    zet = "---\ntitle:  '%1(title)'\nauthor: Stefan Thesing\ntags: []\nfollowups: []\n...\n\n# %0(section1)",
 }
 
 
