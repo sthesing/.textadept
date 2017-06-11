@@ -1,3 +1,5 @@
+
+
 -- Theme
 if not CURSES then 
     ui.set_theme('base16-solarized-dark', 
@@ -28,3 +30,24 @@ keys['c2'] = {
     up = function() buffer.add_text("“") end,
     down = function() buffer.add_text("„") end
 }
+
+-----------------------
+-- Language settings --
+-----------------------
+
+-- Makefiles
+events.connect(events.LEXER_LOADED, function(lexer)
+  if lexer == 'makefile' then
+    buffer.use_tabs = true
+    buffer.view_ws = buffer.WS_VISIBLEONLYININDENT
+  end
+end)
+
+-- Python
+events.connect(events.LEXER_LOADED, function(lexer)
+  if lexer == 'python' then
+    buffer.use_tabs = false
+    buffer.tab_width = 4
+    buffer.view_ws = buffer.WS_VISIBLEONLYININDENT
+  end
+end)
