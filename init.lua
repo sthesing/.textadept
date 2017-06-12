@@ -1,5 +1,3 @@
-
-
 -- Theme
 if not CURSES then 
     ui.set_theme('base16-solarized-dark', 
@@ -22,6 +20,11 @@ yaml = require "yaml"
 if not CURSES then
     local zettels = require('zettels')
     zettels.enable(os.getenv("HOME") .. '/Dokumente/Zettelkasten/', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
+    keys['az'] = {
+        t = function() zettels.search_zettel('Title') end,
+        f = function() zettels.search_zettel('File') end,
+        a = function() zettels.search_zettel('Tags') end,
+    }
 end
 
 -- Keyboard Chains
