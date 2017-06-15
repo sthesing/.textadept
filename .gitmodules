@@ -1,3 +1,6 @@
 [submodule "themes"]
 	path = themes
 	url = https://github.com/rgieseke/textadept-themes.git
+[submodule "modules/ta-rust"]
+	path = modules/ta-rust
+	url = https://github.com/abaez/ta-rust.git
