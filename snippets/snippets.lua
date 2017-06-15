@@ -92,7 +92,10 @@ snippets.markdown = {
 -- Image.
 	i = '![%1(Alt text)](%2(/path/to/img.jpg "Optional title"))',
 -- Zettel metadata
-    zet = "---\ntitle:  '%1(title)'\nauthor: Stefan Thesing\ntags: []\nfollowups: []\n...\n\n# %0(section1)",
+    zet = "---\ntitle:  '%1(title)'\nauthor: Stefan Thesing\ntags: []\nfollowups: []\n...\n\n# %0(section1)\n\n\n[//]: # (Links)",
+    
+    
+    
 -- Changelog block
     cl = "## [Unreleased]\n### Added\n### Changed\n%0\n### Deprecated\n### Removed\n### Fixed\n### Security\n"
 }
