@@ -20,6 +20,7 @@ yaml = require "yaml"
 if not CURSES then
     local zettels = require('zettels')
     zettels.enable(os.getenv("HOME") .. '/Dokumente/Zettelkasten/', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
+    
     keys['az'] = {
         t = function() zettels.search_zettel('Title') end,
         f = function() zettels.search_zettel('File') end,
@@ -33,6 +34,12 @@ keys['c2'] = {
     up = function() buffer.add_text("“") end,
     down = function() buffer.add_text("„") end
 }
+
+--------------------
+--    ta-rust     --  
+--------------------
+_RACER   = true
+_RUSTFMT = true
 
 -----------------------
 -- Language settings --
