@@ -76,12 +76,12 @@ snippets.markdown = {
   ['6'] = '###### ',
 
 --Links
-  link = '[%1(Link)](%2(http://example.net/))',
+  link = '[%1(Link)](%0(http://example.net/))',
 --Clickable link.
-  clink = '<%1(http://example.com/)>',
+  clink = '<%0(http://example.com/)>',
 --Reference-style link.
-  rlink = '[%1(example)][%2(ref)]',
-  id = '[%1(ref)]: %2(http://example.com/)',
+  rlink = '[%1(example)][%0(ref)]',
+  id = '[%1(ref)]: %0(http://example.com/)',
 
 -- Code.
 	c = '`%0`',
