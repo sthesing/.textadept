@@ -25,8 +25,7 @@ usersnippets = {
     ['fence']   = '-- ' .. string.rep('#', 75),
     ['ldots']   = '…',
     ['...']     = '…',
-    ['commit']  = '%1(type)(%2(scope)): %3(subject)\n\n%4(body)\n\n%0(footer)',
-    
+    ['commit']  = '%1(type)(%2(scope)): %3(subject)\n\n%4(body)\n\n%0(footer)',    
 
 -- Specific stuff I frequently use in my German academic texts    
     ['beh']     = 'Behindertenpädagogik',
