@@ -19,7 +19,7 @@ yaml = require "yaml"
 -- Zettels
 if not CURSES then
     local zettels = require('zettels')
-    zettels.enable(os.getenv("HOME") .. '/Dokumente/Zettelkasten/', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
+    zettels.enable(os.getenv("HOME") .. 'space/Dokumente/Wissenschaft/zettelkasten', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
     
     keys['az'] = {
         t = function() zettels.search_zettel('Title') end,
