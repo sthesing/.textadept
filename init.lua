@@ -1,6 +1,6 @@
 -- Theme
 if not CURSES then 
-    ui.set_theme('base16-solarized-dark', 
+    buffer:set_theme('base16-solarized-dark', 
     {font = 'Inconsolata', fontsize = 12}) 
 end
 
@@ -17,9 +17,10 @@ yaml = require "yaml"
 --lyaml = require "yaml.lyaml"
 
 -- Zettels
+
 if not CURSES then
     local zettels = require('zettels')
-    zettels.enable(os.getenv("HOME") .. 'space/Dokumente/Wissenschaft/zettelkasten', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
+    zettels.enable(os.getenv("HOME") .. '/space/Dokumente/Wissenschaft/zettelkasten/', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
     
     keys['az'] = {
         t = function() zettels.search_zettel('Title') end,
@@ -27,13 +28,6 @@ if not CURSES then
         a = function() zettels.search_zettel('Tags') end,
     }
 end
-
--- Keyboard Chains
-keys['c2'] = {
-    -- German Quotation marks
-    up = function() buffer.add_text("“") end,
-    down = function() buffer.add_text("„") end
-}
 
 --------------------
 --    ta-rust     --  
@@ -61,3 +55,19 @@ events.connect(events.LEXER_LOADED, function(lexer)
     buffer.view_ws = buffer.WS_VISIBLEONLYININDENT
   end
 end)
+
+-----------------------
+-- Buffer Settings   --
+-- ex properties.lua --
+-----------------------
+buffer.use_tabs = false
+buffer.tab_width = 4
+buffer.wrap_mode = buffer.WRAP_WORD
+buffer.edge_column = 79
+buffer.edge_mode = buffer.EDGE_LINE
+buffer.edge_colour = buffer.property_int["color.base0A"]
+
+if CURSES then
+    buffer.caret_line_back = 0xff0000
+    buffer.caret_line_visible = true
+end

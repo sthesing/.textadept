@@ -3,6 +3,8 @@
 Textadept stores its built-in snippets in the global variable "snippets".
 I don't want to erase those. Instead I want to _add_ to them, overwriting 
 defaults where necessary.
+
+Also here (scroll down): Key Chains
 --]]
 
 -- a function to insert user defined snippets into the global snippets
@@ -20,6 +22,8 @@ require("snippets/dynamic-snippets")
 --- ##########################################################################
 usersnippets = {
     ['file'] = '%<buffer.filename>',
+    ['today'] = os.date("%Y-%m-%d", os.time()),
+
     -- A snippet to speed up the notation of snippets (Mind. Blown.)
     ['sn']      = '[\'%1(trigger)\']\t\t= \'%2(expanded)\',\n%0',
     ['fence']   = '-- ' .. string.rep('#', 75),
@@ -36,6 +40,7 @@ usersnippets = {
     ['HO']      = 'Handlungsorientierung',
     ['ho']      = 'handlungsorientiert',
     ['Reha']    = 'Rehabilitation',
+    ['Part']    = 'Partizipation',
     ['anfuu']   = '„%0“',
     ['anfuo']   = '“',
     ['mmb']     = 'Menschen mit Behinderung',
@@ -56,7 +61,9 @@ usersnippets = {
     ['bbo']		= 'berufsbildorientiert',
     ['qg']		= 'Qualifizierung',
     ['qo']		= 'Qualifikation',
-      
+    ['sdb']      = 'sonderpädagogischer Förderbedarf',  
+    ['fd']       = 'familienentlastender Dienst',
+    ['zizek']    = 'Žižek',
       
 }
 
@@ -67,12 +74,12 @@ merge_snippets(snippets, usersnippets)
 --- # Markdown Snippets
 snippets.markdown = {
 -- Headers.
-  ['1'] = '# ',
-  ['2'] = '## ',
-  ['3'] = '### ',
-  ['4'] = '#### ',
-  ['5'] = '##### ',
-  ['6'] = '###### ',
+  ['h1'] = '# ',
+  ['h2'] = '## ',
+  ['h3'] = '### ',
+  ['h4'] = '#### ',
+  ['h5'] = '##### ',
+  ['h6'] = '###### ',
 
 --Links
   link = '[%1(Link)](%0(http://example.net/))',
@@ -94,8 +101,31 @@ snippets.markdown = {
     zet = "---\ntitle:  '%1(title)'\nauthor: Stefan Thesing\ntags: []\nfollowups: []\nlang: de\n...\n\n# %0(section1)\n\n\n[//]: # (Links)",
     
 -- Changelog block
-    cl = "## [Unreleased]\n### Added\n### Changed\n%0\n### Deprecated\n### Removed\n### Fixed\n### Security\n"
-}
+    cl = "## [Unreleased]\n### Added\n### Changed\n%0\n### Deprecated\n### Removed\n### Fixed\n### Security\n",
+
+    -- Latex in Markdown (for Zettels)
+        --- \cite [ postnote ]{ key }
+    ['cite']        = '\\cite[S.\\,%2(page)]{%1(source)}',
+    ['zit']         = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t\\parencite[S.\\,%3(page)]{%2(source)}\n\\end{quote}',
+    --- blockquotes for laws
+    ['rzit']        = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t(§\\,%2(source))\n\\citereset{}\n\\end{quote}',
+    ['parencite']        = '\\parencite[S.\\,%2(page)]{%1(source)}',
+    ['textcite']        = '\\textcite[S.\\,%2(page)]{%1(source)}',   
+    --- \citeauthor{key}
+    ['aut']             = '\\citeauthor{%0}',
+    --- aut as a dynamic snippet
+    ['daut']            = '\\citeauthor{' .. dynsn.fields.current_author .. '} ',
+    --- \citetitle{key}
+    ['citetitle']       = '\\citetitle{%0}',
+    --- \citeyear [ prenote ][ postnote ]{ key }
+    ['citeyear']        = '\\citeyear{%0}',
+    --- \fullcite{ key}
+    ['citereset']       = '\\citereset{%0}',
+        --- one of them usually followed by a citation.
+    ['vgl']             = '(vgl. \\cite[S.\\,%2(page)]{%1(source)})',
+        -- current_author ist defined in dynamic snippets. It's usually a bibtex key
+    ['ca']      = dynsn.fields.current_author,
+    }
 
 
 
@@ -120,13 +150,17 @@ snippets.latex = {
     ['desitem']     = '\\item[%1(des)] %2(item)',
     ['ditem']       = '\\item[%1(des)] %2(item)',
     --- next, the classics
-    ['itemize']     = '\\begin{itemize}\n\t\\item %1(item)\n\\end{itemize}\n%0',
-    ['enum']        = '\\begin{enumerate}\n\t\\item %1(item)\n\\end{enumerate}\n%0',
-    ['enumerate']   = '\\begin{enumerate}\n\t\\item %1(item)\n\\end{enumerate}\n%0',
-    ['description'] = '\\begin{description}\n\t\\item[%1(des)] %2(item)\n\\end{description}\n%0',
-    ['des']         = '\\begin{description}\n\t\\item[%1(des)] %2(item)\n\\end{description}\n%0',
-    ['desindent']   = '\\begin{itemize}[style=multiline,leftmargin=2.5cm,font=\\normalfont]\n\t\\item[%1(des)] %2(item)\n\\end{itemize}\n%0',
-    ['frame']       = '\\begin{frame}\n\t\\item %1(content)\n\\end{frame}\n%0',
+    ['itemize']     = '\\begin{itemize}\n\t\\item %0(item)\n\\end{itemize}\n',
+    ['enum']        = '\\begin{enumerate}\n\t\\item %0(item)\n\\end{enumerate}\n',
+    ['enumerate']   = '\\begin{enumerate}\n\t\\item %0(item)\n\\end{enumerate}\n',
+    ['description'] = '\\begin{description}\n\t\\item[%1(des)] %2(item)\n\\end{description}\n',
+    ['des']         = '\\begin{description}\n\t\\item[%1(des)] %2(item)\n\\end{description}\n',
+    -- and compact versions of the classics, as of mdwlist package
+    ['itemizec']    = '\\begin{itemize*}\n\t\\item %0(item)\n\\end{itemize*}\n',
+    ['enumc']       = '\\begin{enumerate*}\n\t\\item %0(item)\n\\end{enumerate*}\n',
+    ['descriptionc'] = '\\begin{description*}\n\t\\item[%1(des)] %2(item)\n\\end{description*}\n',
+    ['desindent']   = '\\begin{itemize}[style=multiline,leftmargin=2.5cm,font=\\normalfont]\n\t\\item[%1(des)] %2(item)\n\\end{itemize}\n',
+    ['frame']       = '\\begin{frame}{%1(title)}\n\t%0(content)\n\\end{frame}\n',
     --- skeleton of my most frequently used table
     ['table']       = '\\begin{table}[hb]\n\t\\begin{tabularx}{\\textwidth}{|l|X|}\n\t\\hline\n\t\\rowcolor{lightgray}\n\t%1(Header Column1) & %2(Header Column2)\\\\ \\hline\n\t%5(Row1Col1)& %6(Row1Col2)\\\\ \\hline\n\t%7(Row2Col1) & %8(Row2Col2)\\\\ \\hline\n\t\\end{tabularx}\n\t\\caption {%3(Caption)}\n\t\\label{tab:%4(label)}\n\\end{table}',
     -- Figure
@@ -146,7 +180,7 @@ snippets.latex = {
     ['page']        = '\\pageref{%0}',
     ['name']        = '\\nameref{%0}',
 -- Quoting, using csquotes
-    ['enq']         = '\\enquote{%1}%0',
+    ['enq']         = '\\enquote{%0}',
     --- blockquotes
     ['zit']         = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t\\parencite[S.\\,%3(page)]{%2(source)}\n\\end{quote}',
     --- blockquotes for laws
@@ -203,8 +237,26 @@ snippets.latex = {
     ['fn']              = '\\footnote{%0}',
     ['ma']              = '\\marginpar{%0}',
     ['rn']              = '\\marginpar{%0}',
+    ['secframe']        = '\\sectionframe{}\n%0',
     -- a Comment Box I use in my excerpts
     ['anm']             = '\\begin{mdframed}[backgroundcolor=gray!20,roundcorner=8pt]\n\t\\textbf{Anm. ' .. dynsn.fields.user_initials .. ':} %0\n\\end{mdframed}',
     -- current_author ist defined in dynamic snippets. It's usually a bibtex key
     ['ca']      = dynsn.fields.current_author,
+}
+
+--- ########################################################################
+--- # Key Chains
+--- ########################################################################
+
+keys['c1'] = {
+    -- Geman gendering
+    g = function() buffer.add_text("\\_innen") end
+}
+
+keys['c2'] = {
+    -- German Quotation marks
+    up = function() buffer.add_text("“") end,
+    down = function() buffer.add_text("„") end,
+    left = function() buffer.add_text("»") end,
+    right = function() buffer.add_text("«") end
 }
