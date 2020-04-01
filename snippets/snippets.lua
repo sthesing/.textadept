@@ -64,7 +64,10 @@ usersnippets = {
     ['sdb']      = 'sonderpädagogischer Förderbedarf',  
     ['fd']       = 'familienentlastender Dienst',
     ['zizek']    = 'Žižek',
-      
+    ['!=']       = '≠',
+    ['ungefähr'] = '≈',
+    ['entspricht'] = '≙',
+    ['Ant']      = 'Anthropologie',
 }
 
 -- Add user defined snippets to the preconfigured ones, overwriting, if 
@@ -96,17 +99,21 @@ snippets.markdown = {
     --python
     cbp = '```{.python .numberLines}\n%0\n```',
 -- Image.
-	i = '![%1(Alt text)](%2(/path/to/img.jpg "Optional title"))',
+	img = '![%1(Alt text)](%2(/path/to/img.jpg "Optional title"))',
 -- Zettel boilerplate
-    zet = "---\ntitle:  '%1(title)'\nauthor: Stefan Thesing\ntags: []\nfollowups: []\nlang: de\n...\n\n# %0(section1)\n\n\n[//]: # (Links)",
+    zet = "---\ntitle:  '%1(title)'\nauthor: Stefan Thesing\ntags: [%2(tag)]\nfollowups: []\nlang: de\n...\n\n# %0(section1)\n\n\n[//]: # (Links)",
     
 -- Changelog block
     cl = "## [Unreleased]\n### Added\n### Changed\n%0\n### Deprecated\n### Removed\n### Fixed\n### Security\n",
 
+    ['cite'] = '[@%1(source) %2(page)]%0',
+    ['zit']  = '>„%1(Quote)“\n([@%2(source) %3(page)])%0',
+    ['vgl']  = '(vgl. [@%1(source) %2(page)])%0',
+    
     -- Latex in Markdown (for Zettels)
-        --- \cite [ postnote ]{ key }
-    ['cite']        = '\\cite[S.\\,%2(page)]{%1(source)}',
-    ['zit']         = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t\\parencite[S.\\,%3(page)]{%2(source)}\n\\end{quote}',
+    ['enq']         = '\\enquote{%1}',
+    ['lcite']        = '\\cite[S.\\,%2(page)]{%1(source)}',
+    ['lzit']         = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t\\parencite[S.\\,%3(page)]{%2(source)}\n\\end{quote}',
     --- blockquotes for laws
     ['rzit']        = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t(§\\,%2(source))\n\\citereset{}\n\\end{quote}',
     ['parencite']        = '\\parencite[S.\\,%2(page)]{%1(source)}',
@@ -122,9 +129,11 @@ snippets.markdown = {
     --- \fullcite{ key}
     ['citereset']       = '\\citereset{%0}',
         --- one of them usually followed by a citation.
-    ['vgl']             = '(vgl. \\cite[S.\\,%2(page)]{%1(source)})',
+    ['lvgl']             = '(vgl. \\cite[S.\\,%2(page)]{%1(source)})',
         -- current_author ist defined in dynamic snippets. It's usually a bibtex key
     ['ca']      = dynsn.fields.current_author,
+    -- semantic annotations; repurposing the fenced_div extenstion of pandoc
+    ['ann'] = "::: {#%1(kind) note=\"%2(note)\"}\n%0(annotated-content)\n:::\n",
     }
 
 
@@ -147,19 +156,17 @@ snippets.latex = {
     --- first, generics
     ['begin']       = '\\begin{%1(type)}\n\t%3( )\n\\end{%1}\n%0',
     ['item']        = '\\item %0',
-    ['desitem']     = '\\item[%1(des)] %2(item)',
-    ['ditem']       = '\\item[%1(des)] %2(item)',
-    --- next, the classics
-    ['itemize']     = '\\begin{itemize}\n\t\\item %0(item)\n\\end{itemize}\n',
-    ['enum']        = '\\begin{enumerate}\n\t\\item %0(item)\n\\end{enumerate}\n',
-    ['enumerate']   = '\\begin{enumerate}\n\t\\item %0(item)\n\\end{enumerate}\n',
-    ['description'] = '\\begin{description}\n\t\\item[%1(des)] %2(item)\n\\end{description}\n',
-    ['des']         = '\\begin{description}\n\t\\item[%1(des)] %2(item)\n\\end{description}\n',
-    -- and compact versions of the classics, as of mdwlist package
-    ['itemizec']    = '\\begin{itemize*}\n\t\\item %0(item)\n\\end{itemize*}\n',
-    ['enumc']       = '\\begin{enumerate*}\n\t\\item %0(item)\n\\end{enumerate*}\n',
-    ['descriptionc'] = '\\begin{description*}\n\t\\item[%1(des)] %2(item)\n\\end{description*}\n',
-    ['desindent']   = '\\begin{itemize}[style=multiline,leftmargin=2.5cm,font=\\normalfont]\n\t\\item[%1(des)] %2(item)\n\\end{itemize}\n',
+    ['desitem']     = '\\item[%1(des)] %0(item)',
+    ['ditem']       = '\\item[%1(des)] %0(item)',
+    --- next, the classics, with a tightlist-option (see below)
+    ['itemize']     = '\\begin{itemize}%1(\\tightlist)\n\t\\item %0(item)\n\\end{itemize}\n',
+    ['enum']        = '\\begin{enumerate}%1(\\tightlist)\n\t\\item %0(item)\n\\end{enumerate}\n',
+    ['enumerate']   = '\\begin{enumerate}%1(\\tightlist)\n\t\\item %0(item)\n\\end{enumerate}\n',
+    ['description'] = '\\begin{description}%1(\\tightlist)\n\t\\item[%2(des)] %0(item)\n\\end{description}\n',
+    ['des'] = '\\begin{description}%1(\\tightlist)\n\t\\item[%2(des)] %0(item)\n\\end{description}\n',
+    -- the tightlist command from pandoc, definition for the document's preamble
+    ['tl']          = '\\providecommand{\\tightlist}{\\setlength{\\itemsep}{0pt}\\setlength{\\parskip}{0pt}}', 
+    -- For Beamer Presentations
     ['frame']       = '\\begin{frame}{%1(title)}\n\t%0(content)\n\\end{frame}\n',
     --- skeleton of my most frequently used table
     ['table']       = '\\begin{table}[hb]\n\t\\begin{tabularx}{\\textwidth}{|l|X|}\n\t\\hline\n\t\\rowcolor{lightgray}\n\t%1(Header Column1) & %2(Header Column2)\\\\ \\hline\n\t%5(Row1Col1)& %6(Row1Col2)\\\\ \\hline\n\t%7(Row2Col1) & %8(Row2Col2)\\\\ \\hline\n\t\\end{tabularx}\n\t\\caption {%3(Caption)}\n\t\\label{tab:%4(label)}\n\\end{table}',
@@ -180,27 +187,20 @@ snippets.latex = {
     ['page']        = '\\pageref{%0}',
     ['name']        = '\\nameref{%0}',
 -- Quoting, using csquotes
-    ['enq']         = '\\enquote{%0}',
+    ['enq']         = '\\enquote{%1}',
     --- blockquotes
-    ['zit']         = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t\\parencite[S.\\,%3(page)]{%2(source)}\n\\end{quote}',
+    --['zit']         = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t\\parencite[S.\\,%3(page)]{%2(source)}\n\\end{quote}',
+    ['zit']         = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t\\parencite[%3(S_wenn_f._o._Anm.)]{%2(source)}\n\\end{quote}\n',
+    ['vgl']             = '(vgl. \\cite[%2(S_wenn_f._o._Anm.)]{%1(source)})',
+    
+    ['S'] = 'S.\\,%0\\,f.',
+    ['s'] = 'S.\\,%0\\,f.',
     --- blockquotes for laws
-    ['rzit']        = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t(§\\,%2(source))\n\\citereset{}\n\\end{quote}',
+    ['rzit']        = '\\begin{quote}\n\t\\enquote{%1(Quote)}\n\t(§\\,%2(source))\n\\citereset{}\n\\end{quote}\n',
 -- Biblatex citation commands
-    --- \cite [ prenote ][ postnote ]{ key }
-    ['citepre']     = '\\cite[%3(prenote)][S.\\,%2(page){%1(source)}',
-    --- \cite [ postnote ]{ key }
-    ['cite']        = '\\cite[S.\\,%2(page)]{%1(source)}',
-    
-    --- \parencite [ prenote ][ postnote ]{ key }
-    ['parencitepre']     = '\\parencite[%3(prenote)][S.\\,%2(page){%1(source)}',
-    --- \parencite [ postnote ]{ key }
-    ['parencite']        = '\\parencite[S.\\,%2(page)]{%1(source)}',
-    
-    --- \textcite [ prenote ][ postnote ]{ key }
-    ['textcitepre']     = '\\textcite[%3(prenote)][S.\\,%2(page){%1(source)}',
-    --- \parencite [ postnote ]{ key }
-    ['textcite']        = '\\textcite[S.\\,%2(page)]{%1(source)}',   
-    
+    ['cite']        = '\\cite[%2(S_wenn_f._o._Anm.)]{%1(source)}',
+    ['parencite']        = '\\parencite[%2(S_wenn_f._o._Anm.)]{%1(source)}',
+    ['textcite']        = '\\textcite[%2(S_wenn_f._o._Anm.)]{%1(source)}',   
     --- \citeauthor{key}
     ['aut']             = '\\citeauthor{%0}',
     --- aut as a dynamic snippet
@@ -217,7 +217,7 @@ snippets.latex = {
     --- \citereset{}
     ['citereset']       = '\\citereset{%0}',
     ['cr']              = '\\citereset{%0}',
--- Some abbreviations frequently used in German academia
+    -- Some abbreviations frequently used in German academia
     ['oä']              = 'o.\\,ä. ',
     ['uä']              = 'u.\\,ä. ',
     ['ua']              = 'u.\\,a. ',
@@ -227,9 +227,7 @@ snippets.latex = {
     ['uu']              = 'u.\\,U. ',
     ['me']              = 'm.\\,E. ',
     ['mE']              = 'm.\\,E. ',
-    --- one of them usually followed by a citation.
-    ['vgl']             = '(vgl. \\cite[S.\\,%2(page)]{%1(source)})',
-
+    
 -- Misc
     ['emph']            = '\\emph{%0}',
     ['bf']              = '\\textbf{%0}',
@@ -240,8 +238,16 @@ snippets.latex = {
     ['secframe']        = '\\sectionframe{}\n%0',
     -- a Comment Box I use in my excerpts
     ['anm']             = '\\begin{mdframed}[backgroundcolor=gray!20,roundcorner=8pt]\n\t\\textbf{Anm. ' .. dynsn.fields.user_initials .. ':} %0\n\\end{mdframed}',
+    -- a horizontal line
+    ['line']            = '\\hrulefill\n%0',
     -- current_author ist defined in dynamic snippets. It's usually a bibtex key
     ['ca']      = dynsn.fields.current_author,
+}
+
+snippets.rust = {
+    ['p']           = 'println!("%0");',
+    ['fn']          = "fn %1(name)(%2(&self)) %3(-> %4(type) ){%0}\n// TODO test this",
+    ['ttt']         = '// TODO test this',
 }
 
 --- ########################################################################
@@ -250,7 +256,13 @@ snippets.latex = {
 
 keys['c1'] = {
     -- Geman gendering
-    g = function() buffer.add_text("\\_innen") end
+    g = function() buffer.add_text("\\_innen") end,
+    -- vulgar fractions
+    ['2'] = function() buffer.add_text("½") end,
+    ['3'] = function() buffer.add_text("⅓") end,
+    ['4'] = function() buffer.add_text("¼") end,
+    ['5'] = function() buffer.add_text("⅕") end,
+    ['6'] = function() buffer.add_text("⅙") end,
 }
 
 keys['c2'] = {
@@ -258,5 +270,12 @@ keys['c2'] = {
     up = function() buffer.add_text("“") end,
     down = function() buffer.add_text("„") end,
     left = function() buffer.add_text("»") end,
-    right = function() buffer.add_text("«") end
+    right = function() buffer.add_text("«") end,
+    -- vulgar fractions
+    ['3'] = function() buffer.add_text("⅔") end, 
+}
+
+keys['c3'] = {
+    -- vulgar fractions
+    ['4'] = function() buffer.add_text("¾") end,
 }
