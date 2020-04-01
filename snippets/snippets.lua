@@ -29,8 +29,8 @@ usersnippets = {
     ['fence']   = '-- ' .. string.rep('#', 75),
     ['ldots']   = '…',
     ['...']     = '…',
-    ['commit']  = '%1(type)(%2(scope)): %3(subject)\n\n%4(body)\n\n%0(footer)',    
-
+    ['commit']  = '%1(type)(%2(scope)): %3(subject)\n\n%4(body)\n\n%0(footer)',
+    
 -- Specific stuff I frequently use in my German academic texts    
     ['beh']     = 'Behindertenpädagogik',
     ['FAB']     = 'Fachkraft zur Arbeits- und Berufsförderung',
@@ -102,7 +102,7 @@ snippets.markdown = {
 	img = '![%1(Alt text)](%2(/path/to/img.jpg "Optional title"))',
 -- Zettel boilerplate
     zet = "---\ntitle:  '%1(title)'\nauthor: Stefan Thesing\ntags: [%2(tag)]\nfollowups: []\nlang: de\n...\n\n# %0(section1)\n\n\n[//]: # (Links)",
-    
+   
 -- Changelog block
     cl = "## [Unreleased]\n### Added\n### Changed\n%0\n### Deprecated\n### Removed\n### Fixed\n### Security\n",
 

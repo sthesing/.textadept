@@ -10,6 +10,7 @@ if CURSES then
     --buffer.edge_colour = buffer.property['color.light_blue']
 end
 
+-- Theme
 if not CURSES then 
     buffer:set_theme('base16-solarized-dark',
     --{fontsize = 13}
@@ -44,13 +45,12 @@ yaml = require "yaml"
 ---[[
 if not CURSES then
     local zettels = require('zettels')
-    zettels.enable(os.getenv("HOME") .. '/space/Dokumente/Wissenschaft/zettelkasten/', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
+    zettels.enable(os.getenv("HOME") .. '/Dokumente/Zettelkasten/', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
     
     keys['az'] = {
         t = function() zettels.search_zettel('Title') end,
-        k = function() zettels.search_zettel('Tags') end,
-        n = function() zettels.search_zettel('File') end,
-        f = function() zettels.search_followups(buffer.filename) end,
+        f = function() zettels.search_zettel('File') end,
+        a = function() zettels.search_zettel('Tags') end,
     }
 end
 --]]
@@ -60,6 +60,12 @@ end
 --------------------
 _RACER   = false
 _RUSTFMT = false
+
+--------------------
+--    ta-rust     --  
+--------------------
+_RACER   = true
+_RUSTFMT = true
 
 -----------------------
 -- Language settings --
