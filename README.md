@@ -8,16 +8,21 @@ My field is Social Science, so this makes extensive use of snippets in LaTeX
 and Markdown.
 I write mainly in German, so a lot of stuff is only useful in German Academia.
 
-## Submodules
+## No more Submodules
+
+I used to have submodules in here, but managing them as submodules was to much
+of a hassel for just a few files. So I removed them and manage the respective
+files manually.
+
+But just for credit, I can really recommend this stuff and still use it, just 
+no longer as submodules.
+
 ### textadept-themes
-I use the textadept-themes repo of rgieseke:
-https://github.com/rgieseke/textadept-themes
 
-But these config files can be used without it. Just add a directory called 
-"themes" in your Textadept-userhome and make sure the themefile referenced in
-init.lua is present, there.
-
+- https://github.com/rgieseke/textadept-themes
+- Just add a directory called "themes" in your Textadept-userhome and make 
+  sure the themefile referenced in your `init.lua` is present, there.
 
 ### ta-rust
 
-https://github.com/abaez/ta-rust
+- https://github.com/abaez/ta-rust
