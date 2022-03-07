@@ -1,10 +1,10 @@
--- Copyright 2007-2017 Mitchell mitchell.att.foicica.com. See LICENSE.
+-- Copyright 2007-2022 Mitchell. See LICENSE.
 
 local M = {}
 
 --[[ This comment is for LuaDoc.
 ---
--- The html module.
+-- The html module for Textadept.
 -- It provides utilities for editing HTML code.
 module('_M.html')]]
 
@@ -12,74 +12,70 @@ module('_M.html')]]
 if not _M.css then _M.css = require('css') end
 
 -- Sets default buffer properties for CSS files.
-events.connect(events.LEXER_LOADED, function(lang)
-  if lang == 'html' then
-    buffer.word_chars =
-      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-'
-  end
+events.connect(events.LEXER_LOADED, function(name)
+  if name ~= 'html' then return end
+  buffer.word_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-'
 end)
 
 -- Autocompletion and documentation.
 
-local completion = '%s'..string.char(buffer.auto_c_type_separator)..'%d'
+local completion = '%s' .. string.char(buffer.auto_c_type_separator) .. '%d'
 local XPM = textadept.editing.XPM_IMAGES
 
 -- List of HTML tags available for autocompletion.
 local tags = {
-  'a', 'abbr', 'acronym', 'address', 'applet', 'area', 'article', 'aside',
-  'audio', 'b', 'base', 'basefont', 'bdo', 'big', 'blockquote', 'body', 'br',
-  'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup',
-  'dd', 'del', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'fieldset', 'figcaption',
-  'figure', 'font', 'footer', 'form', 'frame', 'frameset', 'h1', 'h2', 'h3',
-  'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe',
-  'img', 'input', 'ins', 'isindex', 'kbd', 'label', 'legend', 'li', 'link',
-  'map', 'menu', 'meta', 'nav', 'noframes', 'noscript', 'object', 'ol',
-  'optgroup', 'option', 'p', 'param', 'pre', 'q', 's', 'samp', 'script',
-  'section', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub',
-  'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time',
-  'title', 'tr', 'tt', 'u', 'ul', 'var', 'video'
+  'a', 'abbr', 'acronym', 'address', 'applet', 'area', 'article', 'aside', 'audio', 'b', 'base',
+  'basefont', 'bdo', 'big', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'center',
+  'cite', 'code', 'col', 'colgroup', 'dd', 'del', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'fieldset',
+  'figcaption', 'figure', 'font', 'footer', 'form', 'frame', 'frameset', 'h1', 'h2', 'h3', 'h4',
+  'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins',
+  'isindex', 'kbd', 'label', 'legend', 'li', 'link', 'map', 'menu', 'meta', 'nav', 'noframes',
+  'noscript', 'object', 'ol', 'optgroup', 'option', 'p', 'param', 'pre', 'q', 's', 'samp', 'script',
+  'section', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'tbody',
+  'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'tt', 'u', 'ul', 'var', 'video'
 }
 for i = 1, #tags do tags[i] = completion:format(tags[i], XPM.CLASS) end
 
 -- Map of attribute sets to their attribute lists.
 local attr = {
-  core = {'class', 'id', 'style', 'title'},
-  lang = {'dir', 'lang', 'xml:lang'},
-  key = {'accesskey', 'tabindex'},
+  core = {'class', 'id', 'style', 'title'}, lang = {'dir', 'lang', 'xml:lang'},
+  key = {'accesskey', 'tabindex'}
 }
 for _, attrs in pairs(attr) do
   for i = 1, #attrs do attrs[i] = completion:format(attrs[i], XPM.SLOT) end
 end
 
+-- LuaFormatter off
 -- Map of events to their attribute lists.
 local event = {
   form = {'onblur', 'onchange', 'onfocus', 'onreset', 'onselect', 'onsubmit'},
   key = {'onkeydown', 'onkeypress', 'onkeyup'},
   mouse = {
-    'onclick', 'ondblclick', 'onmousedown', 'onmousemove', 'onmouseout',
-    'onmouseover', 'onmouseup'
+    'onclick', 'ondblclick', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup'
   }
 }
+-- LuaFormatter on
 for _, events in pairs(event) do
   for i = 1, #events do events[i] = completion:format(events[i], XPM.SIGNAL) end
 end
 
+-- LuaFormatter off
 -- Map of tags to attributes available for autocompletion.
 local attributes = {
   a = {
-    'charset', 'coords', 'href', 'hreflang', 'name', 'rel', 'shape', 'target',
-    attr.core, attr.lang, attr.key, event.key, event.mouse, event.form
+    'charset', 'coords', 'href', 'hreflang', 'name', 'rel', 'shape', 'target', attr.core, attr.lang,
+    attr.key, event.key, event.mouse, event.form
   },
   abbr = {attr.core, attr.lang, event.key, event.mouse},
   acronym = {attr.core, attr.lang, event.key, event.mouse},
   address = {attr.core, attr.lang, event.key, event.mouse},
   applet = {
-    'code', 'object', 'align', 'alt', 'archive', 'codebase', 'height', 'hspace',
-    'name', 'vspace', 'width', attr.core
+    'code', 'object', 'align', 'alt', 'archive', 'codebase', 'height', 'hspace', 'name', 'vspace',
+    'width', attr.core
   },
   area = {
-    'alt', 'coords', 'href', 'nohref', 'shape', 'target', attr.core, attr.lang,
-    attr.key, event.key, event.mouse, event.form
+    'alt', 'coords', 'href', 'nohref', 'shape', 'target', attr.core, attr.lang, attr.key, event.key,
+    event.mouse, event.form
   },
   article = {attr.core, attr.lang, event.key, event.mouse},
   aside = {attr.core, attr.lang, event.key, event.mouse},
@@ -90,14 +86,11 @@ local attributes = {
   bdo = {'dir', attr.core, attr.lang},
   big = {attr.core, attr.lang, event.key, event.mouse},
   blockquote = {'cite', attr.core, attr.lang, event.key, event.mouse},
-  body = {
-    'onload', 'onunload', 'alink', 'background', 'bgcolor', 'link', 'text',
-    'vlink'
-  },
+  body = {'onload', 'onunload', 'alink', 'background', 'bgcolor', 'link', 'text', 'vlink'},
   br = {attr.core},
   button = {
-    'disabled', 'name', 'type', 'value', attr.core, attr.lang, attr.key,
-    event.key, event.mouse, event.form
+    'disabled', 'name', 'type', 'value', attr.core, attr.lang, attr.key, event.key, event.mouse,
+    event.form
   },
   canvas = {attr.core, attr.lang, event.key, event.mouse},
   caption = {'align', attr.core, attr.lang, event.key, event.mouse},
@@ -105,12 +98,12 @@ local attributes = {
   cite = {attr.core, attr.lang, event.key, event.mouse},
   code = {attr.core, attr.lang, event.key, event.mouse},
   col = {
-    'align', 'char', 'charoff', 'span', 'valign', 'width', attr.core, attr.lang,
-    event.key, event.mouse
+    'align', 'char', 'charoff', 'span', 'valign', 'width', attr.core, attr.lang, event.key,
+    event.mouse
   },
   colgroup = {
-    'align', 'char', 'charoff', 'span', 'valign', 'width', attr.core, attr.lang,
-    event.key, event.mouse
+    'align', 'char', 'charoff', 'span', 'valign', 'width', attr.core, attr.lang, event.key,
+    event.mouse
   },
   dd = {attr.core, attr.lang, event.key, event.mouse},
   del = {attr.core, attr.lang, event.key, event.mouse},
@@ -126,52 +119,47 @@ local attributes = {
   font = {'color', 'face', 'size', attr.core, attr.lang},
   footer = {attr.core, attr.lang, event.key, event.mouse},
   form = {
-    'action', 'accept', 'accept-charset', 'enctype', 'method', 'name', 'target',
-    attr.core, attr.lang, event.key, event.mouse
+    'action', 'accept', 'accept-charset', 'enctype', 'method', 'name', 'target', attr.core,
+    attr.lang, event.key, event.mouse
   },
   frame = {
-    'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'name',
-    'noresize', 'scrolling', 'src', attr.core
+    'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'name', 'noresize', 'scrolling',
+    'src', attr.core
   },
   frameset = {'cols', 'rows', attr.core, attr.lang},
-  head = {'profile'},
+  head = {'profile', attr.lang},
   h1 = {'align', attr.core, attr.lang, event.key, event.mouse},
   h2 = {'align', attr.core, attr.lang, event.key, event.mouse},
   h3 = {'align', attr.core, attr.lang, event.key, event.mouse},
   h4 = {'align', attr.core, attr.lang, event.key, event.mouse},
   h5 = {'align', attr.core, attr.lang, event.key, event.mouse},
   h6 = {'align', attr.core, attr.lang, event.key, event.mouse},
-  head = {attr.lang},
   header = {attr.core, attr.lang, event.key, event.mouse},
   hgroup = {attr.core, attr.lang, event.key, event.mouse},
   hr = {'align', 'noshade', 'size', 'width', attr.core},
   html = {'xmlns', attr.lang},
   i = {attr.core, attr.lang, event.key, event.mouse},
   iframe = {
-    'align', 'frameborder', 'height', 'longdesc', 'marginheight', 'marginwidth',
-    'name', 'scrolling', 'src', 'width', attr.core
+    'align', 'frameborder', 'height', 'longdesc', 'marginheight', 'marginwidth', 'name',
+    'scrolling', 'src', 'width', attr.core
   },
   img = {
-    'onabort', 'alt', 'src', 'align', 'border', 'height', 'hspace', 'ismap',
-    'longdesc', 'usemap', 'vspace', 'width', attr.core, attr.lang, event.key,
-    event.mouse
+    'onabort', 'alt', 'src', 'align', 'border', 'height', 'hspace', 'ismap', 'longdesc', 'usemap',
+    'vspace', 'width', attr.core, attr.lang, event.key, event.mouse
   },
   input = {
-    'accept', 'align', 'alt', 'checked', 'disabled', 'maxlength', 'name',
-    'readonly', 'size', 'src', 'type', 'value', attr.core, attr.lang, attr.key,
-    event.key, event.mouse, event.form
+    'accept', 'align', 'alt', 'checked', 'disabled', 'maxlength', 'name', 'readonly', 'size', 'src',
+    'type', 'value', attr.core, attr.lang, attr.key, event.key, event.mouse, event.form
   },
   ins = {'cite', 'datetime', attr.core, attr.lang, event.key, event.mouse},
   isindex = {attr.core, attr.lang, event.key, event.mouse},
   kbd = {attr.core, attr.lang, event.key, event.mouse},
-  label = {
-    'for', attr.core, attr.lang, attr.key, event.key, event.mouse, event.form
-  },
+  label = {'for', attr.core, attr.lang, attr.key, event.key, event.mouse, event.form},
   legend = {'align', attr.core, attr.lang, attr.key, event.key, event.mouse},
   li = {'type', 'value', attr.core, attr.lang, event.key, event.mouse},
   link = {
-    'charset', 'href', 'hreflang', 'media', 'rel', 'rev', 'target', 'type',
-    attr.core, attr.lang, event.key, event.mouse
+    'charset', 'href', 'hreflang', 'media', 'rel', 'rev', 'target', 'type', attr.core, attr.lang,
+    event.key, event.mouse
   },
   map = {'name', attr.core, attr.lang, event.key, event.mouse},
   menu = {'compact', attr.core, attr.lang, event.key, event.mouse},
@@ -180,20 +168,13 @@ local attributes = {
   noframes = {attr.core, attr.lang, event.key, event.mouse},
   noscript = {attr.core, attr.lang, event.key, event.mouse},
   object = {
-    'align', 'archive', 'border', 'classid', 'codebase', 'codetype', 'data',
-    'declare', 'height', 'hspace', 'name', 'standby', 'type', 'usemap',
-    'vspace', 'width', attr.core, attr.lang, attr.key, event.key, event.mouse
+    'align', 'archive', 'border', 'classid', 'codebase', 'codetype', 'data', 'declare', 'height',
+    'hspace', 'name', 'standby', 'type', 'usemap', 'vspace', 'width', attr.core, attr.lang,
+    attr.key, event.key, event.mouse
   },
-  ol = {
-    'compact', 'start', 'type', attr.core, attr.lang, event.key, event.mouse
-  },
-  optgroup = {
-    'label', 'disabled', attr.core, attr.lang, event.key, event.mouse
-  },
-  option = {
-    'disabled', 'label', 'selected', 'value', attr.core, attr.lang, event.key,
-    event.mouse
-  },
+  ol = {'compact', 'start', 'type', attr.core, attr.lang, event.key, event.mouse},
+  optgroup = {'label', 'disabled', attr.core, attr.lang, event.key, event.mouse},
+  option = {'disabled', 'label', 'selected', 'value', attr.core, attr.lang, event.key, event.mouse},
   p = {'align', attr.core, attr.lang, event.key, event.mouse},
   param = {'name', 'type', 'value', 'valuetype', 'id'},
   pre = {'width', attr.core, attr.lang, event.key, event.mouse},
@@ -203,8 +184,8 @@ local attributes = {
   script = {'type', 'charset', 'defer', 'src', 'xml:space'},
   section = {attr.core, attr.lang, event.key, event.mouse},
   select = {
-    'disabled', 'multiple', 'name', 'size', attr.core, attr.lang, attr.key,
-    event.key, event.mouse, event.form
+    'disabled', 'multiple', 'name', 'size', attr.core, attr.lang, attr.key, event.key, event.mouse,
+    event.form
   },
   small = {attr.core, attr.lang, event.key, event.mouse},
   span = {attr.core, attr.lang, event.key, event.mouse},
@@ -214,94 +195,77 @@ local attributes = {
   sub = {attr.core, attr.lang, event.key, event.mouse},
   sup = {attr.core, attr.lang, event.key, event.mouse},
   table = {
-    'align', 'bgcolor', 'border', 'cellpadding', 'cellspacing', 'frame',
-    'rules', 'summary', 'width', attr.core, attr.lang, event.key, event.mouse
+    'align', 'bgcolor', 'border', 'cellpadding', 'cellspacing', 'frame', 'rules', 'summary',
+    'width', attr.core, attr.lang, event.key, event.mouse
   },
-  tbody = {
-    'align', 'char', 'charoff', 'valign', attr.core, attr.lang, event.key,
-    event.mouse
-  },
+  tbody = {'align', 'char', 'charoff', 'valign', attr.core, attr.lang, event.key, event.mouse},
   td = {
-    'abbr', 'align', 'axis', 'bgcolor', 'char', 'charoff', 'colspan', 'headers',
-    'height', 'nowrap', 'rowspan', 'scope', 'valign', 'width', attr.core,
-    attr.lang, event.key, event.mouse
+    'abbr', 'align', 'axis', 'bgcolor', 'char', 'charoff', 'colspan', 'headers', 'height', 'nowrap',
+    'rowspan', 'scope', 'valign', 'width', attr.core, attr.lang, event.key, event.mouse
   },
   textarea = {
-    'cols', 'rows', 'disabled', 'name', 'readonly', attr.core, attr.lang,
-    attr.key, event.key, event.mouse, event.form
+    'cols', 'rows', 'disabled', 'name', 'readonly', attr.core, attr.lang, attr.key, event.key,
+    event.mouse, event.form
   },
-  tfoot = {
-    'align', 'char', 'charoff', 'valign', attr.core, attr.lang, event.key,
-    event.mouse
-  },
+  tfoot = {'align', 'char', 'charoff', 'valign', attr.core, attr.lang, event.key, event.mouse},
   th = {
-    'abbr', 'align', 'axis', 'bgcolor', 'char', 'charoff', 'colspan', 'height',
-    'nowrap', 'rowspan', 'scope', 'valign', 'width', attr.core, attr.lang,
-    event.key, event.mouse
+    'abbr', 'align', 'axis', 'bgcolor', 'char', 'charoff', 'colspan', 'height', 'nowrap', 'rowspan',
+    'scope', 'valign', 'width', attr.core, attr.lang, event.key, event.mouse
   },
-  thead = {
-    'align', 'char', 'charoff', 'valign', attr.core, attr.lang, event.key,
-    event.mouse
-  },
+  thead = {'align', 'char', 'charoff', 'valign', attr.core, attr.lang, event.key, event.mouse},
   time = {attr.core, attr.lang, event.key, event.mouse},
   title = {attr.lang},
   tr = {
-    'align', 'bgcolor', 'char', 'charoff', 'valign', attr.core, attr.lang,
-    event.key, event.mouse
+    'align', 'bgcolor', 'char', 'charoff', 'valign', attr.core, attr.lang, event.key, event.mouse
   },
   tt = {attr.core, attr.lang, event.key, event.mouse},
   u = {attr.core, attr.lang, event.key, event.mouse},
   ul = {'compact', 'type', attr.core, attr.lang, event.key, event.mouse},
   var = {attr.core, attr.lang, event.key, event.mouse},
-  video = {attr.core, attr.lang, event.key, event.mouse},
+  video = {attr.core, attr.lang, event.key, event.mouse}
 }
+-- LuaFormatter on
 for _, attrs in pairs(attributes) do
-  for i = 1, #attrs do
-    if type(attrs[i]) == 'string' then
-      attrs[i] = completion:format(attrs[i], XPM.METHOD)
-    end
+  for i, attr in ipairs(attrs) do
+    if type(attr) ~= 'string' then goto continue end
+    attrs[i] = completion:format(attr, XPM.METHOD)
+    ::continue::
   end
 end
 
 textadept.editing.autocompleters.html = function()
   local list = {}
-  -- Retrieve the symbol behind the caret and determine whether it is a tag or
-  -- a tag attribute.
+  -- Retrieve the symbol behind the caret and determine whether it is a tag or a tag attribute.
   local line, pos = buffer:get_cur_line()
-  line = line:sub(1, pos)
+  line = line:sub(1, pos - 1)
   if line:find('>[^<]*$') then return nil end -- outside tag
   if line:find('<([%w:]*)$') then
     -- Autocomplete tag.
     local part = line:match('<([%w:]*)$')
-    local name = '^'..part
-    for i = 1, #tags do
-      if tags[i]:find(name) then list[#list + 1] = tags[i] end
-    end
+    local name = '^' .. part
+    for _, tag in ipairs(tags) do if tag:find(name) then list[#list + 1] = tag end end
     return #part, list
   else
     -- Autocomplete attribute.
     local symbol, part = line:match('<([%w:]+)[^<>]-([%w:]*)$')
     if not symbol and not part then
       -- Look back for an open tag.
-      for i = buffer:line_from_position(buffer.current_pos) - 1, 0, -1 do
-        local line = buffer:get_line(i)
-        if line:find('>[^<]*$') then break end
-        symbol = line:match('<(%w+)[^>]*$')
+      for i = buffer:line_from_position(buffer.current_pos) - 1, 1, -1 do
+        local prev_line = buffer:get_line(i)
+        if prev_line:find('>[^<]*$') then break end
+        symbol = prev_line:match('<(%w+)[^>]*$')
         if symbol then break end
       end
       if not symbol then return nil end
       part = line:match('([%w:]*)$')
     end
-    local name, attrs = '^'..part, attributes[symbol]
+    local name, attrs = '^' .. part, attributes[symbol]
     if attrs then
-      for i = 1, #attrs do
-        local attr = attrs[i]
+      for _, attr in ipairs(attrs) do
         if type(attr) == 'string' then
           if attr:find(name) then list[#list + 1] = attr end
         else
-          for j = 1, #attr do
-            if attr[j]:find(name) then list[#list + 1] = attr[j] end
-          end
+          for _, attr in ipairs(attr) do if attr:find(name) then list[#list + 1] = attr end end
         end
       end
     end
@@ -309,38 +273,21 @@ textadept.editing.autocompleters.html = function()
   end
 end
 
-textadept.editing.api_files.html = {
-  _HOME..'/modules/html/api', _USERHOME..'/modules/html/api'
-}
-
--- Commands.
-
----
--- Container for HTML-specific key bindings.
--- @class table
--- @name _G.keys.html
-keys.html = {}
+textadept.editing.api_files.html = {_HOME .. '/modules/html/api', _USERHOME .. '/modules/html/api'}
 
 -- Snippets.
 
-if type(snippets) == 'table' then
----
--- Container for HTML-specific snippets.
--- @class table
--- @name _G.snippets.html
-  snippets.html = {
-    c = '<!-- %0 -->',
-    ['<'] = '<%1(div)>\n\t%0\n</%1>',
-    divc = '<div class="%1">\n\t%0\n</div>',
-    divi = '<div id="%1">\n\t%0\n</div>',
-    br = '<br />\n%0',
-    table = '<table class="%1">\n\t<tr>\n\t\t<th>%0</th>\n\t</tr>\n</table>',
-    td = '<td>%0</td>',
-    tr = '<tr>\n\t%0\n</tr>',
-    ulc = '<ul class="%1(list)">\n\t%0\n</ul>',
-    ul = '<ul>\n\t%0\n</ul>',
-    li = '<li>%0</li>',
-  }
-end
+local snip = snippets.html
+snip.c = '<!-- %0 -->'
+snip['<'] = '<%1(div)>\n\t%0\n</%1>'
+snip.divc = '<div class="%1">\n\t%0\n</div>'
+snip.divi = '<div id="%1">\n\t%0\n</div>'
+snip.br = '<br />\n%0'
+snip.table = '<table class="%1">\n\t<tr>\n\t\t<th>%0</th>\n\t</tr>\n</table>'
+snip.td = '<td>%0</td>'
+snip.tr = '<tr>\n\t%0\n</tr>'
+snip.ulc = '<ul class="%1(list)">\n\t%0\n</ul>'
+snip.ul = '<ul>\n\t%0\n</ul>'
+snip.li = '<li>%0</li>'
 
 return M

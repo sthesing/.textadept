@@ -1,23 +1,24 @@
 ---------------------------------
 -- Theme and Buffer Settings   --
 ---------------------------------
-if CURSES then
-    buffer:set_theme('term')
-    --buffer.caret_line_back = 0xff0000
-    buffer.caret_line_back = buffer.property['color.light_black']
-    buffer.caret_line_visible = true
-    buffer.edge_colour = 0x00FFFF
-    --buffer.edge_colour = buffer.property['color.light_blue']
-end
+buffer.use_tabs = false
+buffer.tab_width = 4
+buffer.wrap_mode = buffer.WRAP_WORD
+buffer.edge_column = 79
+buffer.edge_mode = buffer.EDGE_LINE
 
+if CURSES then  
+    view:set_theme('jabbo-term')
+end
 
 -- Theme
 if not CURSES then 
-    buffer:set_theme('base16-solarized-dark',
+    view:set_theme('base16-solarized-dark',
     --{fontsize = 13}
     --{font = 'Inconsolata', fontsize = 14}
     --{font = 'Monaco', fontsize = 12}
     {font = 'Noto Mono', fontsize = 12}
+    --{font = 'Comic Mono', fontsize = 12}
     --{font = 'Atari ST 8x16 System Font', fontsize = 14}
     --{font = 'Ubuntu Mono', fontsize = 14}
     --{font = 'Roboto Mono', fontsize = 12}
@@ -26,15 +27,13 @@ if not CURSES then
     buffer.zoom = 2
 end
 
-buffer.use_tabs = false
-buffer.tab_width = 4
-buffer.wrap_mode = buffer.WRAP_WORD
-buffer.edge_column = 79
-buffer.edge_mode = buffer.EDGE_LINE
+-- Stop the message buffer jumping to the foreground, if it's already open
+textadept.run.run_in_background = true
+
 
 
 -- Elastic Tabstops
-require('elastic_tabstops').enable()
+--require('elastic_tabstops').enable()
 
 -- Textadept's yaml module
 yaml = require "yaml"
@@ -43,12 +42,12 @@ yaml = require "yaml"
 --lyaml = require "yaml.lyaml"
 
 -- Zettels
----[[
+--[[
 if not CURSES then
     local zettels = require('zettels')
     zettels.enable(os.getenv("HOME") .. '/space/Dokumente/Wissenschaft/zettelkasten/', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
     
-    keys['az'] = {
+    keys['alt+z'] = {
         t = function() zettels.search_zettel('Title') end,
         k = function() zettels.search_zettel('Tags') end,
         n = function() zettels.search_zettel('File') end,
@@ -105,3 +104,8 @@ textadept.run.run_commands.rust='cargo run --manifest-path ../Cargo.toml'
 
 -- Snippets
 require("snippets/snippets")
+
+-- Spellcheck
+if not CURSES then
+    require('spellcheck')
+end
