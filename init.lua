@@ -19,48 +19,34 @@ if not CURSES then
     --{font = 'Monaco', fontsize = 12}
     {font = 'Noto Mono', fontsize = 12}
     --{font = 'Comic Mono', fontsize = 12}
-    --{font = 'Atari ST 8x16 System Font', fontsize = 14}
+    --{font = 'Atari ST 8x16 System Font', fontsize = 16}
     --{font = 'Ubuntu Mono', fontsize = 14}
     --{font = 'Roboto Mono', fontsize = 12}
     )
-    buffer.edge_colour = buffer.property_int["color.base0A"]
+    buffer.edgea_colour = buffer.property_int["color.base0A"]
     buffer.zoom = 2
 end
 
 -- Stop the message buffer jumping to the foreground, if it's already open
 textadept.run.run_in_background = true
 
-
-
--- Elastic Tabstops
---require('elastic_tabstops').enable()
-
--- Textadept's yaml module
-yaml = require "yaml"
-
--- Or just the lyaml contained in there
---lyaml = require "yaml.lyaml"
-
--- Zettels
---[[
+---------------------------------------------
+--  ta-zettels-ng                          --
+---------------------------------------------
 if not CURSES then
-    local zettels = require('zettels')
-    zettels.enable(os.getenv("HOME") .. '/space/Dokumente/Wissenschaft/zettelkasten/', os.getenv("HOME") .. "/.config/Zettels/index.yaml")
-    
-    keys['alt+z'] = {
-        t = function() zettels.search_zettel('Title') end,
-        k = function() zettels.search_zettel('Tags') end,
-        n = function() zettels.search_zettel('File') end,
-        f = function() zettels.search_followups(buffer.filename) end,
-    }
+    local zettels = require('ta-zettels-ng')
+    zettels.enable(os.getenv("HOME") .. '/.config/zettels/zettels.cfg')
 end
---]]
+
+---------------------------------------------------
+--      Programming Languages                    --
+---------------------------------------------------
 
 --------------------
 --    ta-rust     --  
 --------------------
-_RACER   = false
-_RUSTFMT = false
+--_RACER   = false
+--_RUSTFMT = false
 
 -----------------------
 -- Language settings --
@@ -102,10 +88,18 @@ textadept.run.run_commands.tex='xdg-open "render/%e.pdf"'
 textadept.run.compile_commands.rust='cargo check --manifest-path ../Cargo.toml'
 textadept.run.run_commands.rust='cargo run --manifest-path ../Cargo.toml'
 
--- Snippets
-require("snippets/snippets")
+---------------------------
+-- General Editing stuff --
+---------------------------
 
 -- Spellcheck
 if not CURSES then
     require('spellcheck')
 end
+
+-- Snippets
+require("snippets/snippets")
+
+local pb = require("popen-bug")
+pb.demo()
+
