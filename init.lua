@@ -100,6 +100,3 @@ end
 -- Snippets
 require("snippets/snippets")
 
-local pb = require("popen-bug")
-pb.demo()
-
